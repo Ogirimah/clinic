@@ -1,15 +1,17 @@
+import logo from './logo4.svg';
 import React from 'react';
+import heroImage from './hero-image.png';
 
 const ComingSoon = () => {
     return (
         <div className="coming-soon-page">
             <header className="header">
-                <img src="logo.png" alt="The Brillovate Clinic Logo" />
+                <img src={logo} className="app-logo" alt="The Brillovate Clinic Logo" />
                 <h1>The Brillovate Clinic</h1>
                 <p>Coming Soon</p>
             </header>
             <main className="main">
-                <img src="hero-image.jpg" alt="Hero Image" />
+                <img src={heroImage} alt="Hero Image" />
                 <h2>We're almost ready!</h2>
                 <p>Stay tuned for our grand opening.</p>
             </main>
