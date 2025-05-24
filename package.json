@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -31,7 +33,5 @@
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5"
   },
-  "homepage": "https://github.com/Ogirimah/clinic",
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+  "homepage": "https://github.com/Ogirimah/clinic"
 }
