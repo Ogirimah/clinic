@@ -31,15 +31,20 @@
 // export default ComingSoon;
 
 /** @jsxImportSource @emotion/react */
+/** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+// Assuming 'barner' is correctly imported and accessible at runtime
+// If 'barner' is a local image file, ensure the path is correct relative to this component.
+// For example: import barner from './logo/first_banner.png'; or import barner from '../logo/first_banner.png';
 import barner from '/logo/first_banner.png';
 
 // Define styled components for better organization and reusability
 const PageContainer = styled.div`
-  min-height: 100vh;
-  width: 100vw;
+  min-height: 100vh; /* Ensure it's at least the height of the viewport */
+  height: 100vh;     /* Explicitly set the height to the viewport height */
+  width: 100vw;      /* Explicitly set the width to the viewport width */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,12 +52,26 @@ const PageContainer = styled.div`
   background-color: #1a202c; /* bg-gray-800 */
   color: #e2e8f0; /* text-gray-100 */
   padding: 1rem; /* p-4 */
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif; /* Using Inter font as per instructions */
+  overflow-x: hidden; /* Prevent horizontal scrollbar on small screens */
 `;
 
 const LogoContainer = styled.div`
+  width: 80%; /* Adjust width for mobile */
+  max-width: 300px; /* Max width for logo on larger screens */
+  margin-bottom: 2rem; /* Space below logo */
 
-`
+  img {
+    width: 100%; /* Make image responsive */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove extra space below image */
+  }
+
+  @media (min-width: 768px) { /* md breakpoint */
+    max-width: 400px;
+    margin-bottom: 3rem;
+  }
+`;
 
 const ContentContainer = styled.div`
   text-align: center;
@@ -60,27 +79,36 @@ const ContentContainer = styled.div`
   padding: 2rem; /* p-8 */
   border-radius: 0.75rem; /* rounded-xl */
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
-  max-width: 70vw;
+  max-width: 90vw; /* Max width for mobile */
   width: 100%;
-  min-height: 50vh;
+  /* Removed min-height: 50vh; to allow content to dictate height */
+
+  @media (min-width: 768px) { /* md breakpoint */
+    padding: 3rem;
+    max-width: 50rem; /* max-w-md equivalent for desktop */
+  }
 `;
 
 const Heading = styled.h1`
-  font-size: 3rem; /* text-5xl */
+  font-size: 2.5rem; /* text-5xl equivalent for mobile */
   @media (min-width: 768px) { /* md:text-6xl */
     font-size: 3.75rem;
   }
   font-weight: 800; /* font-extrabold */
-  margin-bottom: 15rem; /* mb-4 */
+  margin-bottom: 1.5rem; /* Adjusted for responsiveness */
   color: #90cdf4; /* text-blue-300 */
+
+  @media (min-width: 768px) {
+    margin-bottom: 2.5rem; /* Increased for desktop */
+  }
 `;
 
 const SubHeading = styled.p`
-  font-size: 2.125rem; /* text-lg */
+  font-size: 1.25rem; /* text-lg equivalent for mobile */
   @media (min-width: 768px) { /* md:text-xl */
-    font-size: 3.25rem;
+    font-size: 1.75rem; /* Adjusted for responsiveness */
   }
-  margin-bottom: 2.5rem; /* mb-6 */
+  margin-bottom: 2rem; /* mb-6 equivalent */
   color: #cbd5e0; /* text-gray-300 */
 `;
 
@@ -88,9 +116,13 @@ const ProgressBarContainer = styled.div`
   width: 100%;
   background-color: #4a5568; /* bg-gray-600 */
   border-radius: 9999px; /* rounded-full */
-  height: 1.25rem; /* h-5 */
+  height: 1rem; /* h-5 equivalent for mobile */
   margin-bottom: 1rem; /* mb-4 */
   overflow: hidden;
+
+  @media (min-width: 768px) {
+    height: 1.25rem; /* h-5 */
+  }
 `;
 
 const ProgressBarFill = styled.div<{ progress: number }>`
@@ -104,9 +136,14 @@ const ProgressBarFill = styled.div<{ progress: number }>`
 const ProgressText = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: 1.875rem; /* text-sm */
+  font-size: 0.875rem; /* text-sm equivalent for mobile */
   color: #a0aec0; /* text-gray-400 */
-  margin-bottom: 5rem; /* mb-8 */
+  margin-bottom: 2rem; /* Adjusted for responsiveness */
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 3rem; /* Increased for desktop */
+  }
 `;
 
 const NotifyButton = styled.button`
@@ -116,7 +153,7 @@ const NotifyButton = styled.button`
   }
   color: white;
   font-weight: bold;
-  padding: 1.25rem 2rem; /* py-3 px-8 */
+  padding: 0.75rem 1.5rem; /* py-3 px-8 equivalent, adjusted for mobile */
   border-radius: 0.5rem; /* rounded-lg */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
   transition: all 0.3s ease; /* transition-colors duration-300 transform */
@@ -127,21 +164,30 @@ const NotifyButton = styled.button`
     outline: none;
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 */
   }
+
+  @media (min-width: 768px) {
+    padding: 1rem 2rem; /* py-3 px-8 */
+  }
 `;
 
 const SocialLinksContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 5.5rem; /* mt-10 */
-  gap: 3rem; /* space-x-4 */
+  margin-top: 3rem; /* Adjusted for responsiveness */
+  gap: 1.5rem; /* space-x-4 equivalent, adjusted for mobile */
+
+  @media (min-width: 768px) {
+    margin-top: 4rem; /* Increased for desktop */
+    gap: 2rem; /* space-x-4 */
+  }
 `;
 
 const SocialLink = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 5rem; /* w-12 */
-  height: 5rem; /* h-12 */
+  width: 2.5rem; /* w-12 equivalent for mobile */
+  height: 2.5rem; /* h-12 equivalent for mobile */
   border-radius: 9999px; /* rounded-full */
   border: 2px solid #a0aec0; /* border-2 border-gray-400 */
   color: #a0aec0; /* text-gray-400 */
@@ -150,12 +196,31 @@ const SocialLink = styled.a`
     color: white;
     border-color: white;
   }
+
+  svg {
+    width: 1.25rem; /* Adjusted SVG size for mobile */
+    height: 1.25rem; /* Adjusted SVG size for mobile */
+  }
+
+  @media (min-width: 768px) {
+    width: 3rem; /* w-12 */
+    height: 3rem; /* h-12 */
+    svg {
+      width: 1.5rem; /* Original SVG size for desktop */
+      height: 1.5rem; /* Original SVG size for desktop */
+    }
+  }
 `;
 
 const CopyrightText = styled.p`
-  margin-top: 7rem; /* mt-12 */
-  font-size: 1.875rem; /* text-sm */
+  margin-top: 4rem; /* Adjusted for responsiveness */
+  font-size: 0.75rem; /* text-sm equivalent for mobile */
   color: #a0aec0; /* text-gray-500 */
+
+  @media (min-width: 768px) {
+    margin-top: 5rem; /* Increased for desktop */
+    font-size: 0.875rem; /* text-sm */
+  }
 `;
 
 // Main App component for the "Under Construction" page
@@ -168,10 +233,10 @@ const ComingSoon: React.FC = () => {
     // Set up an interval to update the progress every 50 milliseconds
     const interval = setInterval(() => {
       setProgress((prevProgress) => {
-        // If progress reaches 100, clear the interval
+        // If progress reaches 50, clear the interval (as per your original code's cap)
         if (prevProgress >= 50) {
           clearInterval(interval);
-          return 50; // Cap progress at 100%
+          return 50; // Cap progress at 50%
         }
         // Increment progress by 1%
         return prevProgress + 1;
@@ -195,7 +260,8 @@ const ComingSoon: React.FC = () => {
   return (
     <PageContainer>
       <LogoContainer>
-        <img src={barner} alt="Brillovate Banner" />
+        {/* Added alt attribute for accessibility */}
+        <img src={barner} alt="Brillovate Banner Logo" />
       </LogoContainer>
       <ContentContainer>
         {/* Main heading for the under construction page */}
