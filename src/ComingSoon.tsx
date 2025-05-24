@@ -227,7 +227,7 @@ const ComingSoon: React.FC = () => {
 
         {/* Notify Me button */}
         <NotifyButton onClick={handleNotifyMeClick}>
-          Notify Me
+          Notify Me!
         </NotifyButton>
 
         {/* Social media links */}
