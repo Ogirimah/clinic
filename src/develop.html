@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeClinic Connect - Your Doctor at Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f4;
+            /* bg-stone-100 */
+            color: #292524;
+            /* text-stone-800 */
+        }
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+        }
+
+        .modal.active {
+            display: flex;
+            /* Show when active */
+        }
+
+        .faq-answer {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+            max-height: 500px;
+            /* Adjust as needed */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .service-details {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, margin-top 0.3s ease-out;
+        }
+
+        .service-card.active .service-details {
+            display: block;
+            max-height: 500px;
+            /* Adjust as needed */
+            margin-top: 0.5rem;
+        }
+
+        .menu-icon span {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .menu-icon.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-icon.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <nav id="navbar" class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-sky-600">HomeClinic Connect</a>
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="#hero" class="nav-link text-stone-600 hover:text-sky-600 px-3 py-2 rounded-md">Home</a>
+                <a href="#how-it-works" class="nav-link text-stone-600 hover:text-sky-600 px-3 py-2 rounded-md">How It
+                    Works</a>
+                <a href="#services" class="nav-link text-stone-600 hover:text-sky-600 px-3 py-2 rounded-md">Services</a>
+                <a href="#pricing" class="nav-link text-stone-600 hover:text-sky-600 px-3 py-2 rounded-md">Pricing</a>
+                <a href="#testimonials"
+                    class="nav-link text-stone-600 hover:text-sky-600 px-3 py-2 rounded-md">Testimonials</a>
+                <a href="#faq" class="nav-link text-stone-600 hover:text-sky-600 px-3 py-2 rounded-md">FAQ</a>
+                <a href="#contact" class="nav-link text-stone-600 hover:text-sky-600 px-3 py-2 rounded-md">Contact</a>
+                <button
+                    class="book-now-btn bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-700 transition duration-300">Book
+                    a Visit</button>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="menu-icon text-stone-600 focus:outline-none">
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current"></span>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg py-2">
+            <a href="#hero" class="nav-link block text-stone-600 hover:text-sky-600 px-6 py-2">Home</a>
+            <a href="#how-it-works" class="nav-link block text-stone-600 hover:text-sky-600 px-6 py-2">How It Works</a>
+            <a href="#services" class="nav-link block text-stone-600 hover:text-sky-600 px-6 py-2">Services</a>
+            <a href="#pricing" class="nav-link block text-stone-600 hover:text-sky-600 px-6 py-2">Pricing</a>
+            <a href="#testimonials" class="nav-link block text-stone-600 hover:text-sky-600 px-6 py-2">Testimonials</a>
+            <a href="#faq" class="nav-link block text-stone-600 hover:text-sky-600 px-6 py-2">FAQ</a>
+            <a href="#contact" class="nav-link block text-stone-600 hover:text-sky-600 px-6 py-2">Contact</a>
+            <button
+                class="book-now-btn bg-sky-600 text-white w-full text-left px-6 py-3 mt-2 hover:bg-sky-700 transition duration-300">Book
+                a Home Visit</button>
+        </div>
+    </nav>
+
+    <section id="hero" class="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-sky-50 to-stone-50">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-stone-800 mb-6">Doctor Visits, <span
+                    class="text-sky-600">Right to Your Door.</span></h1>
+            <p class="text-lg md:text-xl text-stone-600 mb-10 max-w-2xl mx-auto">Skip the waiting room. Get expert
+                medical care from qualified doctors in the comfort and safety of your home.</p>
+            <button
+                class="book-now-btn bg-sky-600 text-white px-8 py-4 text-lg font-semibold rounded-lg hover:bg-sky-700 transition duration-300 shadow-lg transform hover:scale-105">Book
+                a Home Visit Now</button>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Simple Steps to Better Health at
+                Home</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Getting the care you need is easy with
+                our straightforward process. Follow these simple steps to schedule your home visit and receive
+                personalized medical attention.</p>
+            <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+                <div
+                    class="text-center p-6 bg-stone-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-5xl text-sky-600 mb-4">📅</div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-2">1. Request Your Visit</h3>
+                    <p class="text-stone-600">Easily request a visit online or by phone. Tell us your needs and
+                        preferred time. It's quick and hassle-free.</p>
+                </div>
+                <div
+                    class="text-center p-6 bg-stone-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-5xl text-sky-600 mb-4">✔️</div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-2">2. We Confirm & Prepare</h3>
+                    <p class="text-stone-600">Our dedicated team will promptly confirm your appointment and match you
+                        with a qualified, caring doctor.</p>
+                </div>
+                <div
+                    class="text-center p-6 bg-stone-50 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <div class="text-5xl text-sky-600 mb-4">🏡</div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-2">3. Receive Expert Care</h3>
+                    <p class="text-stone-600">Your doctor arrives at your home, providing personalized medical attention
+                        and treatment in your familiar surroundings.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 md:py-24 bg-stone-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Comprehensive Care, When You Need
+                It</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">We offer a wide range of medical
+                services to address your health concerns, all delivered conveniently at your home. Explore our services
+                below.</p>
+            <div id="services-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Transparent Pricing, Easy
+                Payments</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">We believe in clear and upfront
+                pricing. Understand your costs before your visit. We also work with a variety of insurance providers to
+                make care accessible.</p>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+                <div class="bg-stone-50 p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-stone-700 mb-6">Our Pricing</h3>
+                    <div class="space-y-4 text-stone-600">
+                        <p><strong class="text-stone-700">Standard Visit:</strong> Starting from $149 (Varies by
+                            location and complexity)</p>
+                        <p><strong class="text-stone-700">Extended Visit / Multiple Patients:</strong> Custom pricing
+                            available</p>
+                        <p>We ensure there are no hidden fees. All costs are discussed upfront.</p>
+                    </div>
+                    <button
+                        class="mt-8 bg-sky-600 text-white px-6 py-3 rounded-md hover:bg-sky-700 transition duration-300 w-full sm:w-auto pricing-modal-btn"
+                        data-modal-title="Get a Detailed Quote"
+                        data-modal-content="For a detailed quote tailored to your specific needs, please contact us directly. We'll be happy to provide a full breakdown of potential costs.">Get
+                        a Detailed Quote</button>
+                </div>
+                <div class="bg-stone-50 p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-stone-700 mb-6">Insurance Accepted</h3>
+                    <p class="text-stone-600 mb-4">We are continually expanding our network. We currently accept plans
+                        from major providers including:</p>
+                    <ul class="list-disc list-inside text-stone-600 space-y-1 mb-6">
+                        <li>Aetna</li>
+                        <li>Blue Cross Blue Shield</li>
+                        <li>Cigna</li>
+                        <li>UnitedHealthcare</li>
+                        <li>Medicare (Select Plans)</li>
+                        <li>And more...</li>
+                    </ul>
+                    <p class="text-stone-600">Please note that coverage varies by plan. We recommend verifying your
+                        benefits with your provider.</p>
+                    <button
+                        class="mt-8 bg-sky-600 text-white px-6 py-3 rounded-md hover:bg-sky-700 transition duration-300 w-full sm:w-auto pricing-modal-btn"
+                        data-modal-title="Verify Your Insurance"
+                        data-modal-content="To verify your insurance coverage, please call us with your insurance card details, or fill out our secure online verification form (link to be provided). Our team will assist you promptly.">Verify
+                        Your Insurance</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-16 md:py-24 bg-stone-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">What Our Patients Say</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Hear from individuals and families who
+                have experienced the convenience, compassion, and quality of HomeClinic Connect.</p>
+            <div id="testimonials-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Frequently Asked Questions</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Have questions? We've got answers.
+                Find information about our services, booking process, payment options, and more in our FAQ section.</p>
+            <div id="faq-list" class="max-w-3xl mx-auto space-y-4">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 bg-stone-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Get In Touch</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Ready to book your home visit, or have
+                more questions? Contact our friendly and responsive team today. We're here to help you access convenient
+                healthcare.</p>
+            <div
+                class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-lg shadow-xl grid md:grid-cols-2 gap-8 md:gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-stone-700 mb-6">Contact Information</h3>
+                    <p class="text-stone-600 mb-3"><strong>Phone:</strong> <a href="tel:+1234567890"
+                            class="text-sky-600 hover:underline">(123) 456-7890</a></p>
+                    <p class="text-stone-600 mb-3"><strong>Email:</strong> <a
+                            href="mailto:contact@homeclinicconnect.com"
+                            class="text-sky-600 hover:underline">contact@homeclinicconnect.com</a></p>
+                    <p class="text-stone-600 mb-6"><strong>Operating Hours:</strong> Mon - Fri: 8 AM - 8 PM, Sat - Sun:
+                        9 AM - 5 PM</p>
+                    <h4 class="text-lg font-semibold text-stone-700 mb-2">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-500 hover:text-sky-600 text-2xl">FB</a> <a href="#"
+                            class="text-stone-500 hover:text-sky-600 text-2xl">TW</a> <a href="#"
+                            class="text-stone-500 hover:text-sky-600 text-2xl">IN</a>
+                    </div>
+                </div>
+                <form id="contact-form">
+                    <div class="mb-5">
+                        <label for="name" class="block mb-2 text-sm font-medium text-stone-700">Your Name</label>
+                        <input type="text" id="name"
+                            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5"
+                            placeholder="John Doe" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="email" class="block mb-2 text-sm font-medium text-stone-700">Your Email</label>
+                        <input type="email" id="email"
+                            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5"
+                            placeholder="name@example.com" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="subject" class="block mb-2 text-sm font-medium text-stone-700">Subject</label>
+                        <input type="text" id="subject"
+                            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-sky-500 focus:border-sky-500 block w-full p-2.5"
+                            placeholder="Booking Inquiry" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="message" class="block mb-2 text-sm font-medium text-stone-700">Your Message</label>
+                        <textarea id="message" rows="4"
+                            class="block p-2.5 w-full text-sm text-stone-900 bg-stone-50 rounded-lg border border-stone-300 focus:ring-sky-500 focus:border-sky-500"
+                            placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit"
+                        class="text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send
+                        Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-stone-800 text-stone-300 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-4">
+                <a href="#" class="hover:text-sky-400 px-3">Privacy Policy</a>
+                <span class="text-stone-500">|</span>
+                <a href="#" class="hover:text-sky-400 px-3">Terms of Service</a>
+            </div>
+            <p>&copy; <span id="current-year"></span> HomeClinic Connect. All Rights Reserved.</p>
+            <p class="text-sm mt-2 text-stone-400">Designed for convenient and compassionate in-home medical care.</p>
+        </div>
+    </footer>
+
+    <div id="booking-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-stone-700">Book Your Home Visit</h3>
+                <button id="close-booking-modal" class="text-stone-500 hover:text-stone-700 text-2xl">&times;</button>
+            </div>
+            <p class="text-stone-600 mb-4">This is a conceptual booking form. In a real application, you would select
+                services, choose a date/time, and provide patient details here.</p>
+            <form id="conceptual-booking-form">
+                <div class="mb-4">
+                    <label for="modal-service" class="block text-sm font-medium text-stone-700 mb-1">Service Needed
+                        (Example)</label>
+                    <select id="modal-service" class="w-full p-2 border border-stone-300 rounded-md bg-stone-50">
+                        <option>General Consultation</option>
+                        <option>Flu & Cold Symptoms</option>
+                        <option>Minor Injury</option>
+                        <option>Wellness Check-up</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="modal-name" class="block text-sm font-medium text-stone-700 mb-1">Your Name</label>
+                    <input type="text" id="modal-name" placeholder="Full Name"
+                        class="w-full p-2 border border-stone-300 rounded-md bg-stone-50">
+                </div>
+                <div class="mb-6">
+                    <label for="modal-phone" class="block text-sm font-medium text-stone-700 mb-1">Phone Number</label>
+                    <input type="tel" id="modal-phone" placeholder="(123) 456-7890"
+                        class="w-full p-2 border border-stone-300 rounded-md bg-stone-50">
+                </div>
+                <button type="submit"
+                    class="w-full bg-sky-600 text-white px-6 py-3 rounded-md hover:bg-sky-700 transition duration-300">Request
+                    Visit (Conceptual)</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="info-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="info-modal-title" class="text-2xl font-semibold text-stone-700">Information</h3>
+                <button id="close-info-modal" class="text-stone-500 hover:text-stone-700 text-2xl">&times;</button>
+            </div>
+            <p id="info-modal-content" class="text-stone-600 mb-4">Detailed information will be shown here.</p>
+            <button id="info-modal-ok-btn"
+                class="w-full bg-sky-600 text-white px-6 py-3 rounded-md hover:bg-sky-700 transition duration-300">OK</button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scroll for nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            const navbarHeight = document.getElementById('navbar').offsetHeight;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                        // Close mobile menu if open
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            mobileMenuButton.classList.remove('open');
+                        }
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.classList.toggle('open');
+                });
+            }
+
+            // Dynamic data for services
+            const servicesData = [
+                { title: 'Urgent Care (Flu, Colds, Infections)', description: 'Prompt assessment and treatment for common illnesses like flu, colds, sore throats, UTIs, and other infections, all in your home.', icon: '🌡️' },
+                { title: 'Minor Injuries (Sprains, Cuts)', description: 'Care for minor sprains, strains, cuts, and burns that don\'t require an ER visit. We can provide initial assessment and basic wound care.', icon: '🩹' },
+                { title: 'Wellness & Prevention', description: 'Comprehensive check-ups, health screenings, and vaccinations to help you maintain optimal health and prevent future illnesses.', icon: '🩺' },
+                { title: 'Chronic Condition Management', description: 'Ongoing support and management for chronic conditions like diabetes, hypertension, and asthma, including regular monitoring and medication adjustments.', icon: '❤️' },
+                { title: 'Pediatric Home Visits', description: 'Convenient and gentle care for your children, from routine check-ups and vaccinations to sick visits, in a familiar environment.', icon: '👶' },
+                { title: 'Post-Operative Follow-ups', description: 'Monitor recovery, manage pain, and provide wound care after surgical procedures, reducing the need for travel during your healing period.', icon: '👨‍⚕️' }
+            ];
+
+            const servicesGrid = document.getElementById('services-grid');
+            if (servicesGrid) {
+                servicesData.forEach(service => {
+                    const card = document.createElement('div');
+                    card.className = 'service-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300';
+                    card.innerHTML = `
+                <div class="text-4xl mb-4">${service.icon}</div>
+                <h3 class="text-xl font-semibold text-stone-700 mb-3">${service.title}</h3>
+                <p class="text-stone-600 text-sm mb-3">${service.description.substring(0, 100)}...</p>
+                <button class="learn-more-service text-sky-600 hover:text-sky-700 font-medium text-sm">Learn More ▼</button>
+                <div class="service-details text-stone-600 text-sm">
+                    <p>${service.description}</p>
+                </div>
+            `;
+                    servicesGrid.appendChild(card);
+                });
+            }
+
+            // Service card "Learn More" toggle
+            document.querySelectorAll('.learn-more-service').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.service-card');
+                    card.classList.toggle('active');
+                    button.textContent = card.classList.contains('active') ? 'Show Less ▲' : 'Learn More ▼';
+                });
+            });
+
+            // Dynamic data for testimonials
+            const testimonialsData = [
+                { quote: "Booking was so easy, and the doctor was incredibly kind and thorough. A lifesaver for a busy mom!", name: "Sarah M.", stars: 5 },
+                { quote: "Finally, healthcare that fits my schedule. The home visit was comfortable and professional. Highly recommend!", name: "John B.", stars: 5 },
+                { quote: "Exceptional care for my elderly father. The doctor was patient and took the time to explain everything clearly.", name: "Lisa P.", stars: 5 },
+                { quote: "No more crowded waiting rooms! The convenience and quality of care are unmatched. Thank you, HomeClinic Connect!", name: "David K.", stars: 4 },
+                { quote: "Quick response and a very knowledgeable doctor. Made a stressful situation much easier to handle.", name: "Emily R.", stars: 5 },
+                { quote: "I was hesitant about a home visit at first, but it was a fantastic experience. The doctor was great!", name: "Michael T.", stars: 4 }
+            ];
+
+            const testimonialsGrid = document.getElementById('testimonials-grid');
+            if (testimonialsGrid) {
+                testimonialsData.forEach(testimonial => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-6 rounded-lg shadow-md';
+                    let starsHTML = '';
+                    for (let i = 0; i < 5; i++) {
+                        starsHTML += i < testimonial.stars ? '★' : '☆';
+                    }
+                    card.innerHTML = `
+                <p class="text-stone-600 italic mb-4">"${testimonial.quote}"</p>
+                <div class="flex items-center justify-between">
+                    <p class="font-semibold text-stone-700">- ${testimonial.name}</p>
+                    <div class="text-sky-500">${starsHTML}</div>
+                </div>
+            `;
+                    testimonialsGrid.appendChild(card);
+                });
+            }
+
+            // Dynamic data for FAQ
+            const faqData = [
+                { question: "What areas do you serve?", answer: "We currently serve the greater metropolitan area and surrounding suburbs. Please enter your zip code during the booking process or contact us to confirm service in your specific location." },
+                { question: "How quickly can a doctor visit?", answer: "We strive to offer same-day or next-day appointments for urgent needs. For routine visits, you can schedule at your convenience. Availability may vary based on demand and location." },
+                { question: "What types of payment do you accept?", answer: "We accept major credit cards, debit cards, and some HSA/FSA cards. We also work with a growing list of insurance providers. Please see our Pricing & Insurance section for more details." },
+                { question: "Are your doctors qualified?", answer: "Absolutely. All our doctors are board-certified or board-eligible, licensed to practice in your state, and have undergone thorough background checks. They are experienced in providing in-home medical care." },
+                { question: "What if I have an emergency?", answer: "HomeClinic Connect is not for life-threatening emergencies. If you are experiencing a medical emergency, please call 911 or go to the nearest emergency room immediately." }
+            ];
+
+            const faqList = document.getElementById('faq-list');
+            if (faqList) {
+                faqData.forEach(item => {
+                    const faqItem = document.createElement('div');
+                    faqItem.className = 'faq-item bg-stone-50 rounded-lg shadow';
+                    faqItem.innerHTML = `
+                <button class="faq-question w-full text-left p-4 font-semibold text-stone-700 hover:bg-stone-200 transition-colors duration-200 flex justify-between items-center rounded-t-lg">
+                    <span>${item.question}</span>
+                    <span class="arrow text-sky-600 text-xl transform transition-transform duration-300">▼</span>
+                </button>
+                <div class="faq-answer px-4 text-stone-600">
+                    <p>${item.answer}</p>
+                </div>
+            `;
+                    faqList.appendChild(faqItem);
+                });
+            }
+
+            // FAQ Accordion
+            document.querySelectorAll('.faq-question').forEach(button => {
+                button.addEventListener('click', () => {
+                    const faqItem = button.parentElement;
+                    const arrow = button.querySelector('.arrow');
+                    faqItem.classList.toggle('active');
+                    if (faqItem.classList.contains('active')) {
+                        arrow.style.transform = 'rotate(180deg)';
+                    } else {
+                        arrow.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+
+            // Contact Form conceptual submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Thank you for your message! This is a conceptual form. In a real application, your message would be sent to our team.');
+                    contactForm.reset();
+                });
+            }
+
+            // Booking Modal
+            const bookingModal = document.getElementById('booking-modal');
+            const openBookingModalButtons = document.querySelectorAll('.book-now-btn');
+            const closeBookingModalButton = document.getElementById('close-booking-modal');
+            const conceptualBookingForm = document.getElementById('conceptual-booking-form');
+
+            openBookingModalButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (bookingModal) bookingModal.classList.add('active');
+                });
+            });
+
+            if (closeBookingModalButton) {
+                closeBookingModalButton.addEventListener('click', () => {
+                    if (bookingModal) bookingModal.classList.remove('active');
+                });
+            }
+
+            if (conceptualBookingForm) {
+                conceptualBookingForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Thank you for your request! This is a conceptual booking. Our team would typically contact you to confirm details.');
+                    if (bookingModal) bookingModal.classList.remove('active');
+                    conceptualBookingForm.reset();
+                });
+            }
+
+            // Generic Info Modal (for pricing buttons)
+            const infoModal = document.getElementById('info-modal');
+            const pricingModalButtons = document.querySelectorAll('.pricing-modal-btn');
+            const closeInfoModalButton = document.getElementById('close-info-modal');
+            const infoModalTitle = document.getElementById('info-modal-title');
+            const infoModalContent = document.getElementById('info-modal-content');
+            const infoModalOkBtn = document.getElementById('info-modal-ok-btn');
+
+            pricingModalButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const title = btn.dataset.modalTitle || 'Information';
+                    const content = btn.dataset.modalContent || 'No details available.';
+                    if (infoModalTitle) infoModalTitle.textContent = title;
+                    if (infoModalContent) infoModalContent.textContent = content;
+                    if (infoModal) infoModal.classList.add('active');
+                });
+            });
+
+            if (closeInfoModalButton) {
+                closeInfoModalButton.addEventListener('click', () => {
+                    if (infoModal) infoModal.classList.remove('active');
+                });
+            }
+            if (infoModalOkBtn) {
+                infoModalOkBtn.addEventListener('click', () => {
+                    if (infoModal) infoModal.classList.remove('active');
+                });
+            }
+
+            // Close modals on escape key
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (bookingModal && bookingModal.classList.contains('active')) {
+                        bookingModal.classList.remove('active');
+                    }
+                    if (infoModal && infoModal.classList.contains('active')) {
+                        infoModal.classList.remove('active');
+                    }
+                }
+            });
+
+            // Close modals on outside click
+            [bookingModal, infoModal].forEach(modal => {
+                if (modal) {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.classList.remove('active');
+                        }
+                    });
+                }
+            });
+
+
+            // Set current year in footer
+            const currentYearSpan = document.getElementById('current-year');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+
+</html>

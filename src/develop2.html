@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeClinic Connect - Trusted Home Care</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f4;
+            /* bg-stone-100 */
+            color: #292524;
+            /* text-stone-800 */
+        }
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+        }
+
+        .modal.active {
+            display: flex;
+            /* Show when active */
+        }
+
+        .doctor-bio {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+
+        .doctor-card.active .doctor-bio {
+            display: block;
+            max-height: 500px;
+            /* Adjust as needed */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .story-content {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, margin-top 0.3s ease-out;
+        }
+
+        .story-card.active .story-content {
+            display: block;
+            max-height: 500px;
+            /* Adjust as needed */
+            margin-top: 0.5rem;
+        }
+
+        .menu-icon span {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .menu-icon.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-icon.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <nav id="navbar" class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-emerald-700">HomeClinic Connect</a>
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="#hero" class="nav-link text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md">Home</a>
+                <a href="#about" class="nav-link text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md">About
+                    Us</a>
+                <a href="#doctors" class="nav-link text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md">Our
+                    Doctors</a>
+                <a href="#services"
+                    class="nav-link text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md">Services</a>
+                <a href="#stories" class="nav-link text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md">Patient
+                    Stories</a>
+                <a href="#blog" class="nav-link text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md">Blog</a>
+                <a href="#contact"
+                    class="nav-link text-stone-600 hover:text-emerald-700 px-3 py-2 rounded-md">Contact</a>
+                <button
+                    class="book-now-btn bg-emerald-700 text-white px-4 py-2 rounded-md hover:bg-emerald-800 transition duration-300">Schedule
+                    Consultation</button>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="menu-icon text-stone-600 focus:outline-none">
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current"></span>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg py-2">
+            <a href="#hero" class="nav-link block text-stone-600 hover:text-emerald-700 px-6 py-2">Home</a>
+            <a href="#about" class="nav-link block text-stone-600 hover:text-emerald-700 px-6 py-2">About Us</a>
+            <a href="#doctors" class="nav-link block text-stone-600 hover:text-emerald-700 px-6 py-2">Our Doctors</a>
+            <a href="#services" class="nav-link block text-stone-600 hover:text-emerald-700 px-6 py-2">Services</a>
+            <a href="#stories" class="nav-link block text-stone-600 hover:text-emerald-700 px-6 py-2">Patient
+                Stories</a>
+            <a href="#blog" class="nav-link block text-stone-600 hover:text-emerald-700 px-6 py-2">Blog</a>
+            <a href="#contact" class="nav-link block text-stone-600 hover:text-emerald-700 px-6 py-2">Contact</a>
+            <button
+                class="book-now-btn bg-emerald-700 text-white w-full text-left px-6 py-3 mt-2 hover:bg-emerald-800 transition duration-300">Schedule
+                Consultation</button>
+        </div>
+    </nav>
+
+    <section id="hero" class="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-emerald-50 to-stone-50">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-stone-800 mb-6">Bringing Compassionate Care <span
+                    class="text-emerald-700">to Your Home.</span></h1>
+            <p class="text-lg md:text-xl text-stone-600 mb-10 max-w-2xl mx-auto">Experienced Doctors, Personalized
+                Attention, Unmatched Convenience. Your health, our priority, in the comfort of your home.</p>
+            <button
+                class="book-now-btn bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-lg hover:bg-emerald-800 transition duration-300 shadow-lg transform hover:scale-105">Schedule
+                Your Consultation</button>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Our Commitment to Your Well-being
+            </h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16">At HomeClinic Connect, our mission is to redefine
+                healthcare by bringing expert medical services directly to your doorstep. We believe that quality care
+                should be accessible, personal, and delivered with the utmost compassion.</p>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 text-stone-600">
+                <div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Personalized Care</h3>
+                    <p>We take the time to understand your unique health needs and provide tailored treatment plans. Our
+                        doctors focus on building lasting relationships with patients, ensuring continuity and
+                        comprehensive care that goes beyond a quick visit.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Unwavering Quality</h3>
+                    <p>Our team comprises highly qualified, board-certified physicians dedicated to upholding the
+                        highest standards of medical practice. We are committed to delivering safe, effective, and
+                        evidence-based care in every home visit.</p>
+                </div>
+            </div>
+            <p class="text-center text-stone-600 mt-12">Our philosophy is simple: your health and comfort come first. We
+                are here to provide a seamless and reassuring healthcare experience for you and your family.</p>
+        </div>
+    </section>
+
+    <section id="doctors" class="py-16 md:py-24 bg-stone-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Meet Our Dedicated Physicians
+            </h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Our team of experienced and
+                compassionate doctors is committed to providing exceptional care in the comfort of your home. Learn more
+                about their expertise.</p>
+            <div id="doctors-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Our Extensive Range of Home
+                Healthcare Services</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16">We provide a full spectrum of medical services designed
+                to meet diverse health needs, all delivered with the convenience and personalized attention of a home
+                visit.</p>
+            <div class="space-y-8">
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Primary & Urgent Care</h3>
+                    <p class="text-stone-600">From common colds, flu, and infections to minor cuts and sprains, our
+                        doctors provide prompt diagnosis and treatment for a wide range of acute conditions, preventing
+                        unnecessary ER visits.</p>
+                </div>
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Chronic Disease Management</h3>
+                    <p class="text-stone-600">Ongoing care for conditions like diabetes, hypertension, asthma, and heart
+                        disease. We offer regular monitoring, medication adjustments, and lifestyle counseling to help
+                        you manage your health effectively.</p>
+                </div>
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Preventive Health & Wellness</h3>
+                    <p class="text-stone-600">Annual physicals, health screenings, immunizations, and personalized
+                        wellness plans to help you stay healthy and proactive about your long-term well-being.</p>
+                </div>
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Pediatric & Geriatric Care</h3>
+                    <p class="text-stone-600">Specialized care for all ages, from routine child health check-ups and
+                        vaccinations to comprehensive geriatric assessments and management of age-related conditions,
+                        all in a comfortable home setting.</p>
+                </div>
+                <div class="bg-stone-50 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Post-Hospital & Post-Operative Care</h3>
+                    <p class="text-stone-600">Facilitate a smooth transition from hospital to home with follow-up
+                        visits, wound care, medication management, and general health monitoring after discharge or
+                        surgery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stories" class="py-16 md:py-24 bg-stone-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Real Stories of Care and Comfort
+            </h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Discover how HomeClinic Connect has
+                made a difference in the lives of our patients. These are their experiences with our compassionate home
+                care.</p>
+            <div id="stories-grid" class="grid md:grid-cols-2 gap-8">
+            </div>
+        </div>
+    </section>
+
+    <section id="accreditations" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-stone-800 mb-4">Trusted and Recognized</h2>
+            <p class="text-stone-600 mb-12 md:mb-16">HomeClinic Connect is proud to uphold the highest standards of
+                medical care and is affiliated with leading health organizations. Our commitment to excellence ensures
+                you receive the best possible care.</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                <div class="text-stone-700 text-xl font-semibold p-4 border-2 border-stone-300 rounded-lg shadow-sm">
+                    Certified Home Care Provider</div>
+                <div class="text-stone-700 text-xl font-semibold p-4 border-2 border-stone-300 rounded-lg shadow-sm">
+                    Medical Association Partner</div>
+                <div class="text-stone-700 text-xl font-semibold p-4 border-2 border-stone-300 rounded-lg shadow-sm">
+                    Quality Healthcare Standard</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="py-16 md:py-24 bg-stone-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Insights for a Healthier Life
+            </h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Explore our latest articles and health
+                resources, offering valuable information and tips to help you and your family stay well.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">The Benefits of In-Home Vaccinations</h3>
+                    <p class="text-stone-600 text-sm mb-4">Learn why getting your immunizations at home is convenient
+                        and safe, especially for families and the elderly.</p>
+                    <a href="#" class="text-emerald-700 hover:underline text-sm font-medium">Read More →</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Managing Chronic Conditions at Home</h3>
+                    <p class="text-stone-600 text-sm mb-4">Tips and strategies for effectively managing long-term health
+                        conditions with support from home healthcare professionals.</p>
+                    <a href="#" class="text-emerald-700 hover:underline text-sm font-medium">Read More →</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-3">Understanding Pediatric Home Care</h3>
+                    <p class="text-stone-600 text-sm mb-4">A guide for parents on the advantages and services available
+                        for pediatric medical care in the comfort of your home.</p>
+                    <a href="#" class="text-emerald-700 hover:underline text-sm font-medium">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Connect With Our Team</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Have questions about our services or
+                want to schedule a consultation? Reach out to us. Our compassionate team is ready to assist you.</p>
+            <div
+                class="max-w-4xl mx-auto bg-stone-50 p-8 md:p-12 rounded-lg shadow-xl grid md:grid-cols-2 gap-8 md:gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-stone-700 mb-6">Contact Information</h3>
+                    <p class="text-stone-600 mb-3"><strong>Phone:</strong> <a href="tel:+1234567890"
+                            class="text-emerald-700 hover:underline">(123) 456-7890</a></p>
+                    <p class="text-stone-600 mb-3"><strong>Email:</strong> <a
+                            href="mailto:contact@homeclinicconnect.com"
+                            class="text-emerald-700 hover:underline">contact@homeclinicconnect.com</a></p>
+                    <p class="text-stone-600 mb-6"><strong>Operating Hours:</strong> Mon - Fri: 8 AM - 8 PM, Sat - Sun:
+                        9 AM - 5 PM</p>
+                    <h4 class="text-lg font-semibold text-stone-700 mb-2">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-500 hover:text-emerald-700 text-2xl">FB</a>
+                        <a href="#" class="text-stone-500 hover:text-emerald-700 text-2xl">TW</a>
+                        <a href="#" class="text-stone-500 hover:text-emerald-700 text-2xl">IN</a>
+                    </div>
+                </div>
+                <form id="contact-form">
+                    <div class="mb-5">
+                        <label for="name" class="block mb-2 text-sm font-medium text-stone-700">Your Name</label>
+                        <input type="text" id="name"
+                            class="bg-white border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5"
+                            placeholder="John Doe" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="email" class="block mb-2 text-sm font-medium text-stone-700">Your Email</label>
+                        <input type="email" id="email"
+                            class="bg-white border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5"
+                            placeholder="name@example.com" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="subject" class="block mb-2 text-sm font-medium text-stone-700">Subject</label>
+                        <input type="text" id="subject"
+                            class="bg-white border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5"
+                            placeholder="General Inquiry" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="message" class="block mb-2 text-sm font-medium text-stone-700">Your Message</label>
+                        <textarea id="message" rows="4"
+                            class="block p-2.5 w-full text-sm text-stone-900 bg-white rounded-lg border border-stone-300 focus:ring-emerald-500 focus:border-emerald-500"
+                            placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit"
+                        class="text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send
+                        Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-stone-800 text-stone-300 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-4">
+                <a href="#" class="hover:text-emerald-400 px-3">Privacy Policy</a>
+                <span class="text-stone-500">|</span>
+                <a href="#" class="hover:text-emerald-400 px-3">Terms of Service</a>
+            </div>
+            <p>&copy; <span id="current-year-2"></span> HomeClinic Connect. All Rights Reserved.</p>
+            <p class="text-sm mt-2 text-stone-400">Committed to trusted and compassionate in-home medical care.</p>
+        </div>
+    </footer>
+
+    <div id="consultation-modal"
+        class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-stone-700">Schedule Your Consultation</h3>
+                <button id="close-consultation-modal"
+                    class="text-stone-500 hover:text-stone-700 text-2xl">&times;</button>
+            </div>
+            <p class="text-stone-600 mb-4">This is a conceptual consultation request form. In a real application, you
+                would provide details for a personalized discussion with our team.</p>
+            <form id="conceptual-consultation-form">
+                <div class="mb-4">
+                    <label for="modal-topic" class="block text-sm font-medium text-stone-700 mb-1">Consultation Topic
+                        (Example)</label>
+                    <select id="modal-topic" class="w-full p-2 border border-stone-300 rounded-md bg-stone-50">
+                        <option>General Health Inquiry</option>
+                        <option>Chronic Condition Discussion</option>
+                        <option>Service Suitability</option>
+                        <option>Insurance Questions</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="modal-consult-name" class="block text-sm font-medium text-stone-700 mb-1">Your
+                        Name</label>
+                    <input type="text" id="modal-consult-name" placeholder="Full Name"
+                        class="w-full p-2 border border-stone-300 rounded-md bg-stone-50">
+                </div>
+                <div class="mb-6">
+                    <label for="modal-consult-phone" class="block text-sm font-medium text-stone-700 mb-1">Phone
+                        Number</label>
+                    <input type="tel" id="modal-consult-phone" placeholder="(123) 456-7890"
+                        class="w-full p-2 border border-stone-300 rounded-md bg-stone-50">
+                </div>
+                <button type="submit"
+                    class="w-full bg-emerald-700 text-white px-6 py-3 rounded-md hover:bg-emerald-800 transition duration-300">Request
+                    Consultation (Conceptual)</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scroll for nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            const navbarHeight = document.getElementById('navbar').offsetHeight;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                        // Close mobile menu if open
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            mobileMenuButton.classList.remove('open');
+                        }
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.classList.toggle('open');
+                });
+            }
+
+            // Dynamic data for doctors
+            const doctorsData = [
+                {
+                    name: 'Dr. Emily Chen',
+                    specialty: 'Family Medicine',
+                    qualifications: 'Board-Certified, 15+ Years Experience',
+                    bio: 'Dr. Chen is passionate about holistic family care, focusing on preventive health and chronic disease management. She believes in empowering patients through education and personalized treatment plans.',
+                    photo: '🧑‍⚕️'
+                },
+                {
+                    name: 'Dr. Marcus Lee',
+                    specialty: 'Internal Medicine',
+                    qualifications: 'Board-Certified, 10+ Years Experience',
+                    bio: 'Dr. Lee specializes in adult primary care and complex medical conditions. His approach emphasizes thorough diagnostics and a collaborative patient-doctor relationship.',
+                    photo: '👨‍⚕️'
+                },
+                {
+                    name: 'Dr. Sarah Patel',
+                    specialty: 'Pediatrics',
+                    qualifications: 'Board-Certified, 8+ Years Experience',
+                    bio: 'Dr. Patel provides compassionate and gentle care for children of all ages. She focuses on developmental milestones, vaccinations, and common childhood illnesses, making every visit comfortable for young patients.',
+                    photo: '👩‍⚕️'
+                }
+            ];
+
+            const doctorsGrid = document.getElementById('doctors-grid');
+            if (doctorsGrid) {
+                doctorsData.forEach(doctor => {
+                    const card = document.createElement('div');
+                    card.className = 'doctor-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 text-center';
+                    card.innerHTML = `
+                <div class="text-6xl mb-4">${doctor.photo}</div>
+                <h3 class="text-xl font-semibold text-stone-700 mb-1">${doctor.name}</h3>
+                <p class="text-emerald-700 text-sm font-medium mb-2">${doctor.specialty}</p>
+                <p class="text-stone-600 text-xs mb-3">${doctor.qualifications}</p>
+                <button class="view-bio-btn text-emerald-700 hover:text-emerald-800 font-medium text-sm">View Bio ▼</button>
+                <div class="doctor-bio text-stone-600 text-sm mt-3">
+                    <p>${doctor.bio}</p>
+                </div>
+            `;
+                    doctorsGrid.appendChild(card);
+                });
+            }
+
+            // Doctor card "View Bio" toggle
+            document.querySelectorAll('.view-bio-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.doctor-card');
+                    card.classList.toggle('active');
+                    button.textContent = card.classList.contains('active') ? 'Hide Bio ▲' : 'View Bio ▼';
+                });
+            });
+
+            // Dynamic data for patient stories
+            const patientStoriesData = [
+                {
+                    title: "A Lifesaver for My Elderly Mother",
+                    summary: "When my elderly mother fell ill, getting her to a clinic was a huge challenge. HomeClinic Connect sent a doctor right away. The care was exceptional...",
+                    fullStory: "When my elderly mother unexpectedly fell ill, the thought of transporting her to a clinic filled me with dread. She's frail, and the journey would have been incredibly stressful for her. That's when we discovered HomeClinic Connect. I called them, and within hours, a kind and highly competent doctor arrived at our home. The doctor was patient, thorough, and made my mother feel completely at ease. They diagnosed her condition, provided medication, and even followed up the next day. It was a lifesaver for us, providing top-notch care without the stress of leaving home. We are so grateful for their compassionate and convenient service."
+                },
+                {
+                    title: "Convenience for Our Busy Family",
+                    summary: "With two young kids, clinic visits are always a juggle. HomeClinic Connect has transformed how we manage our family's health...",
+                    fullStory: "As a busy parent of two young children, clinic visits often felt like a logistical nightmare. Juggling school schedules, work, and then sitting in a crowded waiting room with sick kids was always a source of stress. HomeClinic Connect has completely transformed how we manage our family's health. Whether it's a sudden fever or a routine check-up, knowing a doctor can come to us saves so much time and hassle. The doctors are wonderful with children, making them feel comfortable and even excited about their visits. It's truly a game-changer for modern family healthcare."
+                },
+                {
+                    title: "Personalized Care for Chronic Conditions",
+                    summary: "Living with a chronic condition requires consistent monitoring. HomeClinic Connect provides the personalized attention I need...",
+                    fullStory: "Living with a chronic condition like diabetes means consistent monitoring and regular doctor visits are essential. Before HomeClinic Connect, these appointments were often rushed, and I felt like just another number. Now, my doctor visits me at home, taking the time to thoroughly review my progress, adjust medications, and answer all my questions in a relaxed environment. The personalized attention has made a significant difference in how I manage my health, and I feel much more supported and empowered. It's healthcare that truly cares about the individual."
+                }
+            ];
+
+            const storiesGrid = document.getElementById('stories-grid');
+            if (storiesGrid) {
+                patientStoriesData.forEach(story => {
+                    const card = document.createElement('div');
+                    card.className = 'story-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300';
+                    card.innerHTML = `
+                <h3 class="text-xl font-semibold text-stone-700 mb-3">${story.title}</h3>
+                <p class="text-stone-600 text-sm mb-3">${story.summary}</p>
+                <button class="read-more-story text-emerald-700 hover:text-emerald-800 font-medium text-sm">Read More ▼</button>
+                <div class="story-content text-stone-600 text-sm">
+                    <p>${story.fullStory}</p>
+                </div>
+            `;
+                    storiesGrid.appendChild(card);
+                });
+            }
+
+            // Patient story "Read More" toggle
+            document.querySelectorAll('.read-more-story').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.story-card');
+                    card.classList.toggle('active');
+                    button.textContent = card.classList.contains('active') ? 'Show Less ▲' : 'Read More ▼';
+                });
+            });
+
+            // Contact Form conceptual submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Thank you for your message! This is a conceptual form. In a real application, your message would be sent to our team.');
+                    contactForm.reset();
+                });
+            }
+
+            // Consultation Modal
+            const consultationModal = document.getElementById('consultation-modal');
+            const openConsultationModalButtons = document.querySelectorAll('.book-now-btn');
+            const closeConsultationModalButton = document.getElementById('close-consultation-modal');
+            const conceptualConsultationForm = document.getElementById('conceptual-consultation-form');
+
+            openConsultationModalButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (consultationModal) consultationModal.classList.add('active');
+                });
+            });
+
+            if (closeConsultationModalButton) {
+                closeConsultationModalButton.addEventListener('click', () => {
+                    if (consultationModal) consultationModal.classList.remove('active');
+                });
+            }
+
+            if (conceptualConsultationForm) {
+                conceptualConsultationForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Thank you for your consultation request! Our team would typically contact you to discuss your needs.');
+                    if (consultationModal) consultationModal.classList.remove('active');
+                    conceptualConsultationForm.reset();
+                });
+            }
+
+            // Close modals on escape key
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (consultationModal && consultationModal.classList.contains('active')) {
+                        consultationModal.classList.remove('active');
+                    }
+                }
+            });
+
+            // Close modals on outside click
+            if (consultationModal) {
+                consultationModal.addEventListener('click', (e) => {
+                    if (e.target === consultationModal) {
+                        consultationModal.classList.remove('active');
+                    }
+                });
+            }
+
+            // Set current year in footer
+            const currentYearSpan = document.getElementById('current-year-2');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+
+</html>

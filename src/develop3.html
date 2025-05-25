@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeClinic Connect - Community & Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f4;
+            /* bg-stone-100 */
+            color: #292524;
+            /* text-stone-800 */
+        }
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+        }
+
+        .modal.active {
+            display: flex;
+            /* Show when active */
+        }
+
+        .resource-details {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+
+        .resource-card.active .resource-details {
+            display: block;
+            max-height: 500px;
+            /* Adjust as needed */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .news-carousel-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .news-carousel-item {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .menu-icon span {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .menu-icon.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-icon.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-icon.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-fade-in.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <nav id="navbar" class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-cyan-700">HomeClinic Connect</a>
+            <div class="hidden md:flex space-x-4 items-center">
+                <a href="#hero" class="nav-link text-stone-600 hover:text-cyan-700 px-3 py-2 rounded-md">Home</a>
+                <a href="#why-home-care" class="nav-link text-stone-600 hover:text-cyan-700 px-3 py-2 rounded-md">Why
+                    Home Care</a>
+                <a href="#service-areas"
+                    class="nav-link text-stone-600 hover:text-cyan-700 px-3 py-2 rounded-md">Service Areas</a>
+                <a href="#support" class="nav-link text-stone-600 hover:text-cyan-700 px-3 py-2 rounded-md">Support</a>
+                <a href="#news" class="nav-link text-stone-600 hover:text-cyan-700 px-3 py-2 rounded-md">News</a>
+                <a href="#portal" class="nav-link text-stone-600 hover:text-cyan-700 px-3 py-2 rounded-md">Patient
+                    Portal</a>
+                <a href="#contact" class="nav-link text-stone-600 hover:text-cyan-700 px-3 py-2 rounded-md">Contact</a>
+                <button
+                    class="portal-btn bg-cyan-700 text-white px-4 py-2 rounded-md hover:bg-cyan-800 transition duration-300">Login/Register</button>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="menu-icon text-stone-600 focus:outline-none">
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current"></span>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg py-2">
+            <a href="#hero" class="nav-link block text-stone-600 hover:text-cyan-700 px-6 py-2">Home</a>
+            <a href="#why-home-care" class="nav-link block text-stone-600 hover:text-cyan-700 px-6 py-2">Why Home
+                Care</a>
+            <a href="#service-areas" class="nav-link block text-stone-600 hover:text-cyan-700 px-6 py-2">Service
+                Areas</a>
+            <a href="#support" class="nav-link block text-stone-600 hover:text-cyan-700 px-6 py-2">Support</a>
+            <a href="#news" class="nav-link block text-stone-600 hover:text-cyan-700 px-6 py-2">News</a>
+            <a href="#portal" class="nav-link block text-stone-600 hover:text-cyan-700 px-6 py-2">Patient Portal</a>
+            <a href="#contact" class="nav-link block text-stone-600 hover:text-cyan-700 px-6 py-2">Contact</a>
+            <button
+                class="portal-btn bg-cyan-700 text-white w-full text-left px-6 py-3 mt-2 hover:bg-cyan-800 transition duration-300">Login/Register</button>
+        </div>
+    </nav>
+
+    <section id="hero" class="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-cyan-50 to-stone-50 animate-fade-in">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold text-stone-800 mb-6">Your Neighborhood Doctor, <span
+                    class="text-cyan-700">At Your Home.</span></h1>
+            <p class="text-lg md:text-xl text-stone-600 mb-10 max-w-2xl mx-auto">Building Healthier Communities, One
+                Visit at a Time. Experience care that understands and supports your family's unique needs.</p>
+            <button
+                class="explore-support-btn bg-cyan-700 text-white px-8 py-4 text-lg font-semibold rounded-lg hover:bg-cyan-800 transition duration-300 shadow-lg transform hover:scale-105">Explore
+                Our Support</button>
+        </div>
+    </section>
+
+    <section id="why-home-care" class="py-16 md:py-24 bg-white animate-fade-in">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">The Home Care Advantage: More
+                Than Just Convenience</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16">Beyond the ease of not leaving your home, our services
+                offer unique benefits that contribute to better health outcomes and a more comfortable healing
+                environment.</p>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 text-stone-600">
+                <div class="p-6 bg-stone-50 rounded-lg shadow-md">
+                    <div class="text-4xl text-cyan-700 mb-4">🛡️</div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-2">Reduced Exposure</h3>
+                    <p>Minimize contact with germs common in clinics, protecting vulnerable family members and
+                        maintaining a safer environment for recovery.</p>
+                </div>
+                <div class="p-6 bg-stone-50 rounded-lg shadow-md">
+                    <div class="text-4xl text-cyan-700 mb-4">🛋️</div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-2">Comfort & Familiarity</h3>
+                    <p>Receive medical attention in your own space, reducing anxiety and allowing for a more relaxed and
+                        effective consultation, especially for children and seniors.</p>
+                </div>
+                <div class="p-6 bg-stone-50 rounded-lg shadow-md">
+                    <div class="text-4xl text-cyan-700 mb-4">👨‍👩‍👧‍👦</div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-2">Family Involvement</h3>
+                    <p>Easily include family members in discussions and care plans, fostering a supportive environment
+                        and ensuring everyone is informed about the patient's health journey.</p>
+                </div>
+                <div class="p-6 bg-stone-50 rounded-lg shadow-md">
+                    <div class="text-4xl text-cyan-700 mb-4">⏱️</div>
+                    <h3 class="text-xl font-semibold text-stone-700 mb-2">Personalized Attention</h3>
+                    <p>Doctors can dedicate more focused time to your specific needs without the rush of a traditional
+                        clinic setting, leading to more thorough assessments and discussions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="service-areas" class="py-16 md:py-24 bg-stone-100 animate-fade-in">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Serving Your Neighborhood</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">We are dedicated to bringing quality
+                care directly to communities across the region. Check if our services are available in your area.</p>
+
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold text-stone-700 mb-4 text-center">Enter Your Zip Code</h3>
+                <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                    <input type="text" id="zip-code-input" placeholder="e.g., 90210"
+                        class="flex-grow p-3 border border-stone-300 rounded-md bg-stone-50 text-stone-900 focus:ring-cyan-500 focus:border-cyan-500">
+                    <button id="check-area-btn"
+                        class="bg-cyan-700 text-white px-6 py-3 rounded-md hover:bg-cyan-800 transition duration-300 flex-shrink-0">Check
+                        Area</button>
+                </div>
+                <div id="area-status" class="text-center text-lg font-medium">
+                </div>
+
+                <div class="mt-8">
+                    <h4 class="text-lg font-semibold text-stone-700 mb-4 text-center">Our Conceptual Service Zones:</h4>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center text-sm">
+                        <div class="p-3 border border-stone-300 rounded-md bg-cyan-100 text-cyan-800 font-medium">Zone A
+                            (Downtown)</div>
+                        <div class="p-3 border border-stone-300 rounded-md bg-cyan-100 text-cyan-800 font-medium">Zone B
+                            (North Suburbs)</div>
+                        <div class="p-3 border border-stone-300 rounded-md bg-cyan-100 text-cyan-800 font-medium">Zone C
+                            (East Districts)</div>
+                        <div class="p-3 border border-stone-300 rounded-md bg-cyan-100 text-cyan-800 font-medium">Zone D
+                            (West Valley)</div>
+                        <div class="p-3 border border-stone-300 rounded-md bg-cyan-100 text-cyan-800 font-medium">Zone E
+                            (South County)</div>
+                        <div class="p-3 border border-stone-300 rounded-md bg-cyan-100 text-cyan-800 font-medium">Zone F
+                            (Coastal Towns)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="support" class="py-16 md:py-24 bg-white animate-fade-in">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Comprehensive Support for
+                Patients & Caregivers</h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">We offer more than just medical
+                visits. Explore our programs and resources designed to empower patients and support their families and
+                caregivers.</p>
+            <div id="resources-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="py-16 md:py-24 bg-stone-100 animate-fade-in">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Latest News & Upcoming Events
+            </h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Stay informed about HomeClinic Connect
+                updates, health awareness campaigns, and community events we're involved in.</p>
+
+            <div class="news-carousel-container max-w-3xl mx-auto relative">
+                <div id="news-carousel-track" class="news-carousel-track">
+                </div>
+                <button id="news-prev-btn"
+                    class="absolute top-1/2 left-0 -translate-y-1/2 bg-white p-2 rounded-full shadow-md text-stone-700 hover:bg-stone-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 z-10">◀</button>
+                <button id="news-next-btn"
+                    class="absolute top-1/2 right-0 -translate-y-1/2 bg-white p-2 rounded-full shadow-md text-stone-700 hover:bg-stone-200 focus:outline-none focus:ring-2 focus:ring-cyan-500 z-10">▶</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="portal" class="py-16 md:py-24 bg-white animate-fade-in">
+        <div class="container mx-auto px-6 max-w-4xl text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-stone-800 mb-4">Your Secure Patient Portal</h2>
+            <p class="text-stone-600 mb-12 md:mb-16">Access your health records, communicate securely with your doctor,
+                manage appointments, and view lab results—all in one convenient and secure online hub.</p>
+            <button
+                class="portal-btn bg-cyan-700 text-white px-8 py-4 text-lg font-semibold rounded-lg hover:bg-cyan-800 transition duration-300 shadow-lg transform hover:scale-105">Login
+                or Register for Portal</button>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-24 bg-stone-100 animate-fade-in">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-stone-800 mb-4">Connect With Our Support Team
+            </h2>
+            <p class="text-center text-stone-600 mb-12 md:mb-16 max-w-xl mx-auto">Whether you have questions about our
+                services, need assistance with resources, or want to provide feedback, our compassionate team is here to
+                help.</p>
+            <div
+                class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-lg shadow-xl grid md:grid-cols-2 gap-8 md:gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold text-stone-700 mb-6">Contact Information</h3>
+                    <p class="text-stone-600 mb-3"><strong>Phone:</strong> <a href="tel:+1234567890"
+                            class="text-cyan-700 hover:underline">(123) 456-7890</a></p>
+                    <p class="text-stone-600 mb-3"><strong>Email:</strong> <a
+                            href="mailto:support@homeclinicconnect.com"
+                            class="text-cyan-700 hover:underline">support@homeclinicconnect.com</a></p>
+                    <p class="text-stone-600 mb-6"><strong>Support Hours:</strong> Mon - Fri: 8 AM - 8 PM, Sat: 9 AM - 3
+                        PM</p>
+                    <h4 class="text-lg font-semibold text-stone-700 mb-2">Social Media</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-stone-500 hover:text-cyan-700 text-2xl">FB</a>
+                        <a href="#" class="text-stone-500 hover:text-cyan-700 text-2xl">TW</a>
+                        <a href="#" class="text-stone-500 hover:text-cyan-700 text-2xl">IN</a>
+                    </div>
+                </div>
+                <form id="contact-form">
+                    <div class="mb-5">
+                        <label for="contact-name" class="block mb-2 text-sm font-medium text-stone-700">Your
+                            Name</label>
+                        <input type="text" id="contact-name"
+                            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
+                            placeholder="John Doe" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="contact-email" class="block mb-2 text-sm font-medium text-stone-700">Your
+                            Email</label>
+                        <input type="email" id="contact-email"
+                            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
+                            placeholder="name@example.com" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="contact-subject"
+                            class="block mb-2 text-sm font-medium text-stone-700">Subject</label>
+                        <input type="text" id="contact-subject"
+                            class="bg-stone-50 border border-stone-300 text-stone-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full p-2.5"
+                            placeholder="Support Inquiry" required>
+                    </div>
+                    <div class="mb-5">
+                        <label for="contact-message" class="block mb-2 text-sm font-medium text-stone-700">Your
+                            Message</label>
+                        <textarea id="contact-message" rows="4"
+                            class="block p-2.5 w-full text-sm text-stone-900 bg-stone-50 rounded-lg border border-stone-300 focus:ring-cyan-500 focus:border-cyan-500"
+                            placeholder="Write your message here..."></textarea>
+                    </div>
+                    <button type="submit"
+                        class="text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send
+                        Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-stone-800 text-stone-300 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-4">
+                <a href="#" class="hover:text-cyan-400 px-3">Privacy Policy</a>
+                <span class="text-stone-500">|</span>
+                <a href="#" class="hover:text-cyan-400 px-3">Terms of Service</a>
+            </div>
+            <p>&copy; <span id="current-year-3"></span> HomeClinic Connect. All Rights Reserved.</p>
+            <p class="text-sm mt-2 text-stone-400">Empowering health through community and comprehensive support.</p>
+        </div>
+    </footer>
+
+    <div id="portal-modal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-semibold text-stone-700">Patient Portal Access</h3>
+                <button id="close-portal-modal" class="text-stone-500 hover:text-stone-700 text-2xl">&times;</button>
+            </div>
+            <p class="text-stone-600 mb-4">This is a conceptual portal login/registration. In a real application, this
+                would lead to secure patient access.</p>
+            <form id="conceptual-portal-form">
+                <div class="mb-4">
+                    <label for="portal-username" class="block text-sm font-medium text-stone-700 mb-1">Username /
+                        Email</label>
+                    <input type="text" id="portal-username" placeholder="your@email.com"
+                        class="w-full p-2 border border-stone-300 rounded-md bg-stone-50">
+                </div>
+                <div class="mb-6">
+                    <label for="portal-password" class="block text-sm font-medium text-stone-700 mb-1">Password</label>
+                    <input type="password" id="portal-password" placeholder="********"
+                        class="w-full p-2 border border-stone-300 rounded-md bg-stone-50">
+                </div>
+                <button type="submit"
+                    class="w-full bg-cyan-700 text-white px-6 py-3 rounded-md hover:bg-cyan-800 transition duration-300">Login
+                    (Conceptual)</button>
+                <p class="text-center text-sm text-stone-600 mt-4">Don't have an account? <a href="#"
+                        class="text-cyan-700 hover:underline">Register Now (Conceptual)</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scroll for nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            const navbarHeight = document.getElementById('navbar').offsetHeight;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                        // Close mobile menu if open
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            mobileMenuButton.classList.remove('open');
+                        }
+                    }
+                });
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.classList.toggle('open');
+                });
+            }
+
+            // Dynamic data for patient support resources
+            const resourcesData = [
+                { title: 'Caregiver Support Groups', summary: 'Connect with other caregivers, share experiences, and find emotional support in our facilitated online and in-person groups.', icon: '🤝', fullDetails: 'Our caregiver support groups provide a safe and understanding space for individuals caring for loved ones. Facilitated by experienced professionals, these groups offer emotional support, practical advice, and a sense of community to help you navigate the challenges and rewards of caregiving. We offer both virtual and local in-person sessions to accommodate various schedules and preferences.' },
+                { title: 'Health Education Workshops', summary: 'Attend free workshops on managing chronic conditions, healthy living, and preventive care, led by our medical experts.', icon: '📚', fullDetails: 'Knowledge is power when it comes to health. Our regular health education workshops cover a wide range of topics, including diabetes management, heart health, nutrition, stress reduction, and more. These interactive sessions are led by our qualified doctors and health educators, providing you with valuable insights and practical strategies to take control of your well-being. Check our news section for upcoming workshop schedules.' },
+                { title: 'Community Health Partnerships', summary: 'Learn about our collaborations with local organizations to bring health screenings and wellness programs directly to your community.', icon: '🏘️', fullDetails: 'We believe in fostering healthier communities through collaboration. HomeClinic Connect partners with local community centers, senior living facilities, and non-profit organizations to offer free health screenings, vaccination drives, and wellness programs. Our goal is to make essential health services accessible to everyone, promoting a healthier and more vibrant community for all. Look out for our events in your neighborhood!' },
+                { title: 'Mental Wellness Resources', summary: 'Access curated resources and referrals for mental health support, including counseling services and stress management techniques.', icon: '🧠', fullDetails: 'Mental well-being is a crucial component of overall health. We provide a curated list of trusted mental wellness resources, including links to reputable counseling services, online therapy platforms, and self-help guides for stress management, anxiety, and depression. Our team can also offer referrals to mental health professionals if further support is needed, ensuring a holistic approach to your care.' }
+            ];
+
+            const resourcesGrid = document.getElementById('resources-grid');
+            if (resourcesGrid) {
+                resourcesData.forEach(resource => {
+                    const card = document.createElement('div');
+                    card.className = 'resource-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300';
+                    card.innerHTML = `
+                <div class="text-4xl mb-4">${resource.icon}</div>
+                <h3 class="text-xl font-semibold text-stone-700 mb-3">${resource.title}</h3>
+                <p class="text-stone-600 text-sm mb-3">${resource.summary}</p>
+                <button class="read-more-resource text-cyan-700 hover:text-cyan-800 font-medium text-sm">Read More ▼</button>
+                <div class="resource-details text-stone-600 text-sm">
+                    <p>${resource.fullDetails}</p>
+                </div>
+            `;
+                    resourcesGrid.appendChild(card);
+                });
+            }
+
+            // Resource card "Read More" toggle
+            document.querySelectorAll('.read-more-resource').forEach(button => {
+                button.addEventListener('click', () => {
+                    const card = button.closest('.resource-card');
+                    card.classList.toggle('active');
+                    button.textContent = card.classList.contains('active') ? 'Show Less ▲' : 'Read More ▼';
+                });
+            });
+
+            // News Carousel Data
+            const newsData = [
+                { title: "New Partnership with Local Senior Centers", date: "May 20, 2025", snippet: "We're excited to announce our collaboration with local senior centers to provide on-site health screenings and wellness talks." },
+                { title: "Webinar: Managing Diabetes at Home", date: "May 15, 2025", snippet: "Join our free webinar on June 5th to learn effective strategies for managing diabetes from the comfort of your home." },
+                { title: "Expanded Service Hours for Summer", date: "May 10, 2025", snippet: "To better serve you, we've extended our operating hours for the summer months. Check our contact page for details." },
+                { title: "Celebrating National Nurses Week", date: "May 8, 2025", snippet: "A huge thank you to our incredible nursing team for their dedication and compassionate care. #NursesWeek" }
+            ];
+
+            const newsCarouselTrack = document.getElementById('news-carousel-track');
+            const newsPrevBtn = document.getElementById('news-prev-btn');
+            const newsNextBtn = document.getElementById('news-next-btn');
+            let currentNewsIndex = 0;
+
+            if (newsCarouselTrack) {
+                newsData.forEach(item => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'news-carousel-item p-6';
+                    newsItem.innerHTML = `
+                <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
+                    <h3 class="text-xl font-semibold text-stone-700 mb-2">${item.title}</h3>
+                    <p class="text-stone-500 text-xs mb-3">${item.date}</p>
+                    <p class="text-stone-600 text-sm flex-grow">${item.snippet}</p>
+                    <a href="#" class="text-cyan-700 hover:underline text-sm font-medium mt-4 self-start">Learn More →</a>
+                </div>
+            `;
+                    newsCarouselTrack.appendChild(newsItem);
+                });
+
+                const updateCarousel = () => {
+                    const itemWidth = newsCarouselTrack.children[0].offsetWidth;
+                    newsCarouselTrack.style.transform = `translateX(-${currentNewsIndex * itemWidth}px)`;
+                };
+
+                newsPrevBtn.addEventListener('click', () => {
+                    currentNewsIndex = (currentNewsIndex > 0) ? currentNewsIndex - 1 : newsData.length - 1;
+                    updateCarousel();
+                });
+
+                newsNextBtn.addEventListener('click', () => {
+                    currentNewsIndex = (currentNewsIndex < newsData.length - 1) ? currentNewsIndex + 1 : 0;
+                    updateCarousel();
+                });
+
+                // Adjust carousel on window resize
+                window.addEventListener('resize', updateCarousel);
+                updateCarousel(); // Initial update
+            }
+
+            // Service Area Check (Conceptual)
+            const zipCodeInput = document.getElementById('zip-code-input');
+            const checkAreaBtn = document.getElementById('check-area-btn');
+            const areaStatus = document.getElementById('area-status');
+
+            if (checkAreaBtn && zipCodeInput && areaStatus) {
+                checkAreaBtn.addEventListener('click', () => {
+                    const zipCode = zipCodeInput.value.trim();
+                    if (zipCode) {
+                        // Simulate service area check
+                        if (zipCode.startsWith('902') || zipCode.startsWith('100')) { // Example valid zip codes
+                            areaStatus.className = 'text-center text-lg font-medium text-green-600 mt-4';
+                            areaStatus.textContent = `Great news! We serve your area (${zipCode}).`;
+                        } else {
+                            areaStatus.className = 'text-center text-lg font-medium text-red-600 mt-4';
+                            areaStatus.textContent = `Sorry, we currently do not serve your area (${zipCode}). Please contact us for future updates.`;
+                        }
+                    } else {
+                        areaStatus.className = 'text-center text-lg font-medium text-orange-600 mt-4';
+                        areaStatus.textContent = 'Please enter a zip code to check.';
+                    }
+                });
+            }
+
+            // Contact Form conceptual submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Thank you for your message! This is a conceptual form. In a real application, your message would be sent to our support team.');
+                    contactForm.reset();
+                });
+            }
+
+            // Patient Portal Modal
+            const portalModal = document.getElementById('portal-modal');
+            const openPortalModalButtons = document.querySelectorAll('.portal-btn');
+            const closePortalModalButton = document.getElementById('close-portal-modal');
+            const conceptualPortalForm = document.getElementById('conceptual-portal-form');
+
+            openPortalModalButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (portalModal) portalModal.classList.add('active');
+                });
+            });
+
+            if (closePortalModalButton) {
+                closePortalModalButton.addEventListener('click', () => {
+                    if (portalModal) portalModal.classList.remove('active');
+                });
+            }
+
+            if (conceptualPortalForm) {
+                conceptualPortalForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Conceptual Login/Registration: In a real application, this would securely log you in or register your account.');
+                    if (portalModal) portalModal.classList.remove('active');
+                    conceptualPortalForm.reset();
+                });
+            }
+
+            // Close modals on escape key
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (portalModal && portalModal.classList.contains('active')) {
+                        portalModal.classList.remove('active');
+                    }
+                }
+            });
+
+            // Close modals on outside click
+            if (portalModal) {
+                portalModal.addEventListener('click', (e) => {
+                    if (e.target === portalModal) {
+                        portalModal.classList.remove('active');
+                    }
+                });
+            }
+
+            // Section fade-in animation on scroll
+            const faders = document.querySelectorAll('.animate-fade-in');
+            const appearOptions = {
+                threshold: 0.2
+            };
+            const appearOnScroll = new IntersectionObserver(function (entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('in-view');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+
+            // Set current year in footer
+            const currentYearSpan = document.getElementById('current-year-3');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Scroll to "Support" section when "Explore Our Support" button is clicked
+            const exploreSupportBtn = document.querySelector('.explore-support-btn');
+            if (exploreSupportBtn) {
+                exploreSupportBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetElement = document.getElementById('support');
+                    if (targetElement) {
+                        const navbarHeight = document.getElementById('navbar').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

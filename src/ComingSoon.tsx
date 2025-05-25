@@ -30,7 +30,7 @@
 
 // export default ComingSoon;
 
-/** @jsxImportSource @emotion/react */
+
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
@@ -254,7 +254,10 @@ const ComingSoon: React.FC = () => {
     // For this example, we'll use a simple alert.
     // NOTE: In a production web app, consider a custom modal instead of alert()
     // for better user experience and styling control.
-    alert('You will be notified when the site is ready!');
+
+
+    // alert('You will be notified when the site is ready!');
+    window.location.href = 'src/develop2.html';
   };
 
   return (
