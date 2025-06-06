@@ -1,36 +1,3 @@
-// import logo from './logo4.svg';
-// import React from 'react';
-// import heroImage from './hero-image.png';
-
-// const ComingSoon = () => {
-//     return (
-//         <div className="coming-soon-page">
-//             <header className="header">
-//                 <img src={logo} className="app-logo" alt="The Brillovate Clinic Logo" />
-//                 <h1>The Brillovate Clinic</h1>
-//                 <p>Coming Soon</p>
-//             </header>
-//             <main className="main">
-//                 <img src={heroImage} alt="Hero Image" />
-//                 <h2>We're almost ready!</h2>
-//                 <p>Stay tuned for our grand opening.</p>
-//             </main>
-//             <footer className="footer">
-//                 <p>Follow us on:</p>
-//                 <ul>
-//                     <li><a href="https://www.facebook.com/yourclinic">Facebook</a></li>
-//                     <li><a href="https://www.instagram.com/yourclinic">Instagram</a></li>
-//                     <li><a href="https://www.twitter.com/yourclinic">Twitter</a></li>
-//                 </ul>
-//                 <p>The Brillovate Clinic. Your health, our priority.</p>
-//             </footer>
-//         </div>
-//     );
-// };
-
-// export default ComingSoon;
-
-
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/react';
@@ -147,30 +114,6 @@ const ProgressText = styled.div`
   }
 `;
 
-const NotifyButton = styled.button`
-  background-color: #4299e1; /* bg-blue-500 */
-  &:hover {
-    background-color: #3182ce; /* hover:bg-blue-600 */
-  }
-  color: white;
-  font-weight: bold;
-  padding: 0.75rem 1.5rem; /* py-3 px-8 equivalent, adjusted for mobile */
-  border-radius: 0.5rem; /* rounded-lg */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
-  transition: all 0.3s ease; /* transition-colors duration-300 transform */
-  &:hover {
-    transform: scale(1.05); /* hover:scale-105 */
-  }
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 */
-  }
-
-  @media (min-width: 768px) {
-    padding: 1rem 2rem; /* py-3 px-8 */
-  }
-`;
-
 const SocialLinksContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -247,19 +190,6 @@ const ComingSoon: React.FC = () => {
     // Cleanup function: clear the interval when the component unmounts
     return () => clearInterval(interval);
   }, []); // Empty dependency array means this effect runs once on mount
-
-  // // Handler for the "Notify Me" button click
-  // const handleNotifyMeClick = () => {
-  //   // In a real application, you would integrate with a backend service
-  //   // to handle notifications (e.g., collecting emails).
-  //   // For this example, we'll use a simple alert.
-  //   // NOTE: In a production web app, consider a custom modal instead of alert()
-  //   // for better user experience and styling control.
-
-
-  //   // alert('You will be notified when the site is ready!');
-  //   window.location.href = 'src/dev/index.html';
-  // };
 
   return (
     <PageContainer>
