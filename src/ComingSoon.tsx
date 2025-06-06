@@ -39,6 +39,7 @@ import styled from '@emotion/styled';
 // If 'barner' is a local image file, ensure the path is correct relative to this component.
 // For example: import barner from './logo/first_banner.png'; or import barner from '../logo/first_banner.png';
 import barner from '/logo/first_banner.png';
+import NotifyMeForm from './NotifyMe';
 
 // Define styled components for better organization and reusability
 const PageContainer = styled.div`
@@ -90,7 +91,7 @@ const ContentContainer = styled.div`
 `;
 
 const Heading = styled.h1`
-  font-size: 2.5rem; /* text-5xl equivalent for mobile */
+  font-size: 1.75rem; /* text-5xl equivalent for mobile */
   @media (min-width: 768px) { /* md:text-6xl */
     font-size: 3.75rem;
   }
@@ -247,18 +248,18 @@ const ComingSoon: React.FC = () => {
     return () => clearInterval(interval);
   }, []); // Empty dependency array means this effect runs once on mount
 
-  // Handler for the "Notify Me" button click
-  const handleNotifyMeClick = () => {
-    // In a real application, you would integrate with a backend service
-    // to handle notifications (e.g., collecting emails).
-    // For this example, we'll use a simple alert.
-    // NOTE: In a production web app, consider a custom modal instead of alert()
-    // for better user experience and styling control.
+  // // Handler for the "Notify Me" button click
+  // const handleNotifyMeClick = () => {
+  //   // In a real application, you would integrate with a backend service
+  //   // to handle notifications (e.g., collecting emails).
+  //   // For this example, we'll use a simple alert.
+  //   // NOTE: In a production web app, consider a custom modal instead of alert()
+  //   // for better user experience and styling control.
 
 
-    // alert('You will be notified when the site is ready!');
-    window.location.href = 'src/develop2.html';
-  };
+  //   // alert('You will be notified when the site is ready!');
+  //   window.location.href = 'src/dev/index.html';
+  // };
 
   return (
     <PageContainer>
@@ -295,9 +296,7 @@ const ComingSoon: React.FC = () => {
         </ProgressText>
 
         {/* Notify Me button */}
-        <NotifyButton onClick={handleNotifyMeClick}>
-          Notify Me!
-        </NotifyButton>
+        <NotifyMeForm />
 
         {/* Social media links */}
         <SocialLinksContainer>
