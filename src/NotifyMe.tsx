@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { X } from 'lucide-react';
 
 const NotifyMeForm: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -45,34 +46,46 @@ const NotifyMeForm: React.FC = () => {
       {isOpen && (
         <div className="overlay">
           <div className="modal">
+            <button className="closeButton" type="button" onClick={handleClose}><X /></button>
             <h2>Subscribe for Updates</h2>
             <form onSubmit={handleSubmit} method='POST'>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Name"
-                required
-              />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-                required
-              />
-              <input
-                type="tel"
-                value={phoneNumber}
-                onChange={(e) => setphoneNumber(e.target.value)}
-                placeholder="Phone number"
-              />
-              <button type="submit">Submit</button>
-              <button type="button" onClick={handleClose}>Cancel</button>
+              <label htmlFor="names">Name
+                <input
+                  type="text"
+                  value={name}
+                  name='names'
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Name"
+                  required
+                />
+              </label>
+              <label htmlFor="email">Email
+                <input
+                  type="email"
+                  value={email}
+                  name='email'
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                  required
+                />
+              </label>
+              <label htmlFor='telephone'>Mobile
+                <input
+                  type="tel"
+                  value={phoneNumber}
+                  name='telephone'
+                  onChange={(e) => setphoneNumber(e.target.value)}
+                  placeholder="Phone number"
+                />
+              </label>
+              <span>
+                <button type="submit">Submit</button>
+              </span>
             </form>
           </div>
         </div>
-      )}
+      )
+      }
 
       <style>{`
         .overlay {
@@ -88,9 +101,10 @@ const NotifyMeForm: React.FC = () => {
         }
         .modal {
           background: #2d3748;
-          padding: 20px;
+          padding: 30px;
           border-radius: 10px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          position: relative;
         }
         form {
           display: flex;
@@ -99,7 +113,18 @@ const NotifyMeForm: React.FC = () => {
         input {
           margin-bottom: 10px;
           padding: 8px;
+          margin-left: 10px;
+          width: 15rem;
         }
+          .closeButton {
+          padding: 0px;
+          margin: 0px;
+          background-color: #2d3748;
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          ;
+          }
         button {
           background-color: #4299e1; /* bg-blue-500 */
           &:hover {
@@ -128,9 +153,14 @@ const NotifyMeForm: React.FC = () => {
           margin-top: 1rem;
           margin-bottom: 1rem;
           }
+          label {
+          text-align: right;
+
+          }
+          
       `}
       </style>
-    </div>
+    </div >
   );
 };
 
