@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 // Assuming 'barner' is correctly imported and accessible at runtime
 // If 'barner' is a local image file, ensure the path is correct relative to this component.
 // For example: import barner from './logo/first_banner.png'; or import barner from '../logo/first_banner.png';
-import barner from '/logo/first_banner.png';
+import barner from '/logo/second_banner.png';
 import NotifyMeForm from './NotifyMe';
 
 // Define styled components for better organization and reusability
@@ -25,8 +25,8 @@ const PageContainer = styled.div`
 `;
 
 const LogoContainer = styled.div`
-  width: 80%; /* Adjust width for mobile */
-  max-width: 300px; /* Max width for logo on larger screens */
+  width: 100%; /* Adjust width for mobile */
+  max-width: 1080px; /* Max width for logo on larger screens */
   margin-bottom: 2rem; /* Space below logo */
 
   img {
